@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/Volumes/USB20FD/Discrete Structures/Projects/build",
+  "command": "/usr/bin/clang++   -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -o CMakeFiles/RNS.dir/main.cpp.o -c \"/Volumes/USB20FD/Discrete Structures/Projects/main.cpp\"",
+  "file": "/Volumes/USB20FD/Discrete Structures/Projects/main.cpp",
+  "output": "CMakeFiles/RNS.dir/main.cpp.o"
+},
+{
+  "directory": "/Volumes/USB20FD/Discrete Structures/Projects/build",
+  "command": "/usr/bin/clang++   -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -o CMakeFiles/RNS.dir/rns.cpp.o -c \"/Volumes/USB20FD/Discrete Structures/Projects/rns.cpp\"",
+  "file": "/Volumes/USB20FD/Discrete Structures/Projects/rns.cpp",
+  "output": "CMakeFiles/RNS.dir/rns.cpp.o"
+},
+{
+  "directory": "/Volumes/USB20FD/Discrete Structures/Projects/build",
+  "command": "/usr/bin/clang++   -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -o CMakeFiles/RNS.dir/rns-number.cpp.o -c \"/Volumes/USB20FD/Discrete Structures/Projects/rns-number.cpp\"",
+  "file": "/Volumes/USB20FD/Discrete Structures/Projects/rns-number.cpp",
+  "output": "CMakeFiles/RNS.dir/rns-number.cpp.o"
+}
+]
