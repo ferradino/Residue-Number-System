@@ -8,17 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Volumes/USB20FD/Discrete Structures/Projects/main.cpp" "CMakeFiles/RNS.dir/main.cpp.o" "gcc" "CMakeFiles/RNS.dir/main.cpp.o.d"
-  "/Volumes/USB20FD/Discrete Structures/Projects/rns-number.cpp" "CMakeFiles/RNS.dir/rns-number.cpp.o" "gcc" "CMakeFiles/RNS.dir/rns-number.cpp.o.d"
-  "/Volumes/USB20FD/Discrete Structures/Projects/rns.cpp" "CMakeFiles/RNS.dir/rns.cpp.o" "gcc" "CMakeFiles/RNS.dir/rns.cpp.o.d"
+  "/home/ferradino/Residue-Number-System/main.cpp" "CMakeFiles/RNS.dir/main.cpp.o" "gcc" "CMakeFiles/RNS.dir/main.cpp.o.d"
+  "/home/ferradino/Residue-Number-System/rns-number.cpp" "CMakeFiles/RNS.dir/rns-number.cpp.o" "gcc" "CMakeFiles/RNS.dir/rns-number.cpp.o.d"
+  "/home/ferradino/Residue-Number-System/rns.cpp" "CMakeFiles/RNS.dir/rns.cpp.o" "gcc" "CMakeFiles/RNS.dir/rns.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
 set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
-  )
-
-# Targets to which this target links which contain Fortran sources.
-set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
   )
 
 # Fortran module output directory.

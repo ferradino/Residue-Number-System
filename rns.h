@@ -8,7 +8,7 @@
 class RNS {
 
   public:
-    RNS(uint32_t moduli[], uint32_t num);
+    RNS(uint32_t moduli[], uint32_t modCount);
     ~RNS();
 
     RNSNumber createRNSNumber(uint32_t num);

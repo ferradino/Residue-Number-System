@@ -1,6 +1,15 @@
 #include "rns.h"
 
-RNS::RNS(uint32_t moduli[], uint32_t num) {}
+RNS::RNS(uint32_t moduli[], uint32_t modCount) {
+  // Get product of Moduli (M)
+  
+  // Get m-hat values
+  
+  // Get inverse values
+
+  // Get r inverses
+  
+}
 
 RNS::~RNS() {
   delete [] mModuli;
@@ -19,11 +28,30 @@ RNSNumber RNS::createRNSNumber(std::string num) {
   return number;
 }
 
-RNSNumber RNS::addRNSNumbers(RNSNumber left, RNSNumber right) {}
+RNSNumber RNS::addRNSNumbers(RNSNumber left, RNSNumber right) {
+  // uint64_t?
+  uint32_t num = left.getNum() + right.getNum(); 
+  RNSNumber number = RNSNumber(num);
+  mVectorCount++;
+  return number;
+}
 
-RNSNumber RNS::subRNSNumbers(RNSNumber left, RNSNumber right) {}
+RNSNumber RNS::subRNSNumbers(RNSNumber left, RNSNumber right) {
+  // uint64_t?
+  uint32_t num = left.getNum() - right.getNum(); 
+  RNSNumber number = RNSNumber(num);
+  mVectorCount++;
+  return number;
+}
 
-RNSNumber RNS::multRNSNumbers(RNSNumber left, RNSNumber right) {}
+
+RNSNumber RNS::multRNSNumbers(RNSNumber left, RNSNumber right) {
+  // uint64_t?
+  uint32_t num = left.getNum() * right.getNum(); 
+  RNSNumber number = RNSNumber(num);
+  mVectorCount++;
+  return number;
+}
 
 std::string RNS::convertToString(RNSNumber num) {}
 
