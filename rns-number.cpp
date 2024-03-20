@@ -1,11 +1,11 @@
 #include "rns-number.h"
 #include <cstdint>
 
-RNSNumber::RNSNumber(uint32_t num) {
-  mNum = num;
-  mRemainders = new uint32_t(mNum);
+RNSNumber::RNSNumber(uint32_t remainders[], uint32_t numRemainders, RNS *rns) {
+  mRNS = rns;
+  mRemainders = new uint32_t();
   
-  for (int i = 0; i < mNum - 1; i++) {
-    mRemainders[i] = i + 1;
+  for (int i = 0; i < numRemainders; i++) {
+    mRemainders[i] = remainders[i];
   }
 }

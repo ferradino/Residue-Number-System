@@ -11,11 +11,11 @@ class RNS {
     RNS(uint32_t moduli[], uint32_t modCount);
     ~RNS();
 
-    RNSNumber createRNSNumber(uint32_t num);
-    RNSNumber createRNSNumber(std::string num);
-    RNSNumber addRNSNumbers(RNSNumber left, RNSNumber right);
-    RNSNumber subRNSNumbers(RNSNumber left, RNSNumber right);
-    RNSNumber multRNSNumbers(RNSNumber left, RNSNumber right);
+    RNSNumber createRNSNumber(uint32_t num, RNS *rns);
+    RNSNumber createRNSNumber(std::string num, RNS *rns);
+    RNSNumber addRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns);
+    RNSNumber subRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns);
+    RNSNumber multRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns);
 
     int32_t getVectorCount() { return mVectorCount; }
     int32_t getArithmeticCount() { return mArithmeticCount; }

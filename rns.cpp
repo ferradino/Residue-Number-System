@@ -1,55 +1,90 @@
 #include "rns.h"
 
 RNS::RNS(uint32_t moduli[], uint32_t modCount) {
-  // Get product of Moduli (M)
-  
-  // Get m-hat values
-  
-  // Get inverse values
+  // Assign moduli and modCount
 
-  // Get r inverses
+  // Calculate M
   
+  // Calculate m hat
+  
+  // Calculate inverses
+
 }
 
 RNS::~RNS() {
-  delete [] mModuli;
-  delete [] mHats;
-  delete [] mInverses;
-  delete [] mRInverses;
 }
 
-RNSNumber RNS::createRNSNumber(uint32_t num) {
-  RNSNumber number = RNSNumber(num);
+RNSNumber RNS::createRNSNumber(uint32_t num, RNS *rns) {
+  uint32_t remainders[mNumModuli];
+
+  for (int i = 0; i < mNumModuli; i++) {
+    remainders[i] = num % mModuli[i];
+  }
+ 
+  RNSNumber number = RNSNumber(remainders, mNumModuli, rns);
   return number;
 }
 
-RNSNumber RNS::createRNSNumber(std::string num) {
-  RNSNumber number = RNSNumber((uint32_t)stoi(num));
+RNSNumber RNS::createRNSNumber(std::string num, RNS *rns) {
+  uint32_t remainders[mNumModuli];
+
+  for (int i = 0; i < mNumModuli; i++) {
+    remainders[i] = uint32_t(stoi(num)) % mModuli[i];
+  }
+ 
+  RNSNumber number = RNSNumber(remainders, mNumModuli, rns);
   return number;
 }
 
-RNSNumber RNS::addRNSNumbers(RNSNumber left, RNSNumber right) {
-  // uint64_t?
-  uint32_t num = left.getNum() + right.getNum(); 
-  RNSNumber number = RNSNumber(num);
+RNSNumber RNS::addRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns) {
+  uint32_t *xRemainders = x.getRemainders();
+  uint32_t *yRemainders = y.getRemainders();
+  uint32_t remainders[mNumModuli];
+
+  for (int i = 0; i < mNumModuli; i++) {
+    remainders[i] = (xRemainders[i] + yRemainders[i]) % mModuli[i];
+  }
+
+  RNSNumber number = RNSNumber(remainders, mNumModuli, rns);
+
   mVectorCount++;
+  mArithmeticCount += mNumModuli;
+
   return number;
 }
 
-RNSNumber RNS::subRNSNumbers(RNSNumber left, RNSNumber right) {
-  // uint64_t?
-  uint32_t num = left.getNum() - right.getNum(); 
-  RNSNumber number = RNSNumber(num);
+RNSNumber RNS::subRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns) {
+  uint32_t *xRemainders = x.getRemainders();
+  uint32_t *yRemainders = y.getRemainders();
+  uint32_t remainders[mNumModuli];
+
+  for (int i = 0; i < mNumModuli; i++) {
+    remainders[i] = (xRemainders[i] + yRemainders[i]) % mModuli[i];
+  }
+
+  RNSNumber number = RNSNumber(remainders, mNumModuli, rns);
+
   mVectorCount++;
+  mArithmeticCount += mNumModuli;
+
   return number;
 }
 
 
-RNSNumber RNS::multRNSNumbers(RNSNumber left, RNSNumber right) {
-  // uint64_t?
-  uint32_t num = left.getNum() * right.getNum(); 
-  RNSNumber number = RNSNumber(num);
+RNSNumber RNS::multRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns) {
+  uint32_t *xRemainders = x.getRemainders();
+  uint32_t *yRemainders = y.getRemainders();
+  uint32_t remainders[mNumModuli];
+
+  for (int i = 0; i < mNumModuli; i++) {
+    remainders[i] = (xRemainders[i] + yRemainders[i]) % mModuli[i];
+  }
+
+  RNSNumber number = RNSNumber(remainders, mNumModuli, rns);
+
   mVectorCount++;
+  mArithmeticCount += mNumModuli;
+
   return number;
 }
 
