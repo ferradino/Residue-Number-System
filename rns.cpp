@@ -29,6 +29,11 @@ uint32_t findInverse(int32_t a, int32_t n) {
 }
 
 RNS::RNS(uint32_t moduli[], uint32_t modCount) {
+  mModulus = new uint32_t(modCount);
+  mMHat = new uint32_t(modCount);
+  mMHatInverse = new uint32_t(modCount);
+  mRInverse = new uint32_t(modCount);
+
   mNumModuli = modCount; 
 
   for (int i = 0; i < mNumModuli; i++) {
@@ -47,6 +52,10 @@ RNS::RNS(uint32_t moduli[], uint32_t modCount) {
 }
 
 RNS::~RNS() {
+  delete [] mModulus;
+  delete [] mMHat;
+  delete [] mMHatInverse;
+  delete [] mRInverse;
 }
 
 RNSNumber RNS::createRNSNumber(uint32_t num, RNS *rns) {
