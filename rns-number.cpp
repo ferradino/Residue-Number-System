@@ -3,7 +3,7 @@
 
 RNSNumber::RNSNumber(uint32_t remainders[], uint32_t numRemainders, RNS *rns) {
   mRNS = rns;
-  mRemainders = new uint32_t();
+  mRemainders = new uint32_t(numRemainders);
   
   for (int i = 0; i < numRemainders; i++) {
     mRemainders[i] = remainders[i];

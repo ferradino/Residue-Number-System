@@ -32,12 +32,6 @@
 	"compileGroups" : 
 	[
 		{
-			"compileCommandFragments" : 
-			[
-				{
-					"fragment" : " -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk"
-				}
-			],
 			"language" : "CXX",
 			"sourceIndexes" : 
 			[
@@ -53,7 +47,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-L/opt/homebrew/opt/llvm/lib",
+				"fragment" : "",
 				"role" : "flags"
 			}
 		],

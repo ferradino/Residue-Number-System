@@ -11,6 +11,7 @@ class RNSNumber {
     ~RNSNumber() { delete [] mRemainders; }
 
     uint32_t *getRemainders() { return mRemainders; }
+    RNS *getRNS() { return mRNS; }
 
   private:
     uint32_t *mRemainders;

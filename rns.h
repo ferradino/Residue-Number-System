@@ -2,8 +2,10 @@
 #define _RNS_H
 
 #include "rns-number.h"
+#include <iostream>
 #include <cstdint>
 #include <string>
+#include <vector>
 
 class RNS {
 
@@ -28,10 +30,14 @@ class RNS {
     int32_t mNumModuli;
     int32_t mVectorCount;
     int32_t mArithmeticCount;
-    uint32_t *mModuli;
-    uint32_t *mHats;
-    uint32_t *mInverses;
-    uint32_t *mRInverses;
+
+    uint32_t mM;
+    uint32_t *mModulus;
+    uint32_t *mMHat;
+    uint32_t *mMHatInverse;
+    uint32_t *mRInverse;
+
+    std::vector<RNSNumber*> mRNSNumberPointer;
 };
 
 #endif
