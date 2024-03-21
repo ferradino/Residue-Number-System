@@ -7,7 +7,7 @@ class RNS;
 class RNSNumber {
 
   public:
-    RNSNumber(uint32_t remainders[], uint32_t numRemainders, RNS *rns);
+    RNSNumber(uint32_t remainders[], RNS *rns);
     ~RNSNumber() { delete [] mRemainders; }
 
     uint32_t *getRemainders() { return mRemainders; }

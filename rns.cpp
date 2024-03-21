@@ -65,7 +65,7 @@ RNSNumber RNS::createRNSNumber(uint32_t num, RNS *rns) {
     remainders[i] = num % mModulus[i];
   }
  
-  RNSNumber number = RNSNumber(remainders, mNumModuli, rns);
+  RNSNumber number = RNSNumber(remainders, rns);
   return number;
 }
 
@@ -76,7 +76,7 @@ RNSNumber RNS::createRNSNumber(std::string num, RNS *rns) {
     remainders[i] = uint32_t(stoi(num)) % mModulus[i];
   }
  
-  RNSNumber number = RNSNumber(remainders, mNumModuli, rns);
+  RNSNumber number = RNSNumber(remainders, rns);
   return number;
 }
 
@@ -97,7 +97,7 @@ RNSNumber RNS::addRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns) {
   mVectorCount++;
   mArithmeticCount += mNumModuli;
 
-  return RNSNumber(remainders, mNumModuli, rns);
+  return RNSNumber(remainders, rns);
 }
 
 RNSNumber RNS::subRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns) {
@@ -117,7 +117,7 @@ RNSNumber RNS::subRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns) {
   mVectorCount++;
   mArithmeticCount += mNumModuli;
 
-  return RNSNumber(remainders, mNumModuli, rns);
+  return RNSNumber(remainders, rns);
 }
 
 
@@ -138,7 +138,7 @@ RNSNumber RNS::multRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns) {
   mVectorCount++;
   mArithmeticCount += mNumModuli;
 
-  return RNSNumber(remainders, mNumModuli, rns);
+  return RNSNumber(remainders, rns);
 }
 
 std::string RNS::convertToString(RNSNumber num) {}
