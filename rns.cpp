@@ -189,11 +189,11 @@ uint32_t RNS::ComputeAlpha(RNSNumber rnsNumber) {
   }
 
   alpha = sum >> 32;
-  f = sum % ((uint64_t)1 << 32);
+  f = sum & 0x00000000ffffffff;
 
-  if (f >= ((uint64_t)1 << 32) - m_NumModuli) {
-    return alpha;
+  if (f >= 0xffffffff - m_NumModuli + 1) {
+    return -1;
   }
     
-  return -1;
+  return alpha;
 }
