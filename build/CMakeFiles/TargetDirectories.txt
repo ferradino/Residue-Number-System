@@ -1,3 +1,3 @@
-/home/ferradino/Residue-Number-System/build/CMakeFiles/RNS.dir
-/home/ferradino/Residue-Number-System/build/CMakeFiles/edit_cache.dir
-/home/ferradino/Residue-Number-System/build/CMakeFiles/rebuild_cache.dir
+/Volumes/USB20FD/Discrete Structures/Projects/build/CMakeFiles/RNS.dir
+/Volumes/USB20FD/Discrete Structures/Projects/build/CMakeFiles/edit_cache.dir
+/Volumes/USB20FD/Discrete Structures/Projects/build/CMakeFiles/rebuild_cache.dir

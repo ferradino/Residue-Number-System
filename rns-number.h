@@ -7,15 +7,15 @@ class RNS;
 class RNSNumber {
 
   public:
-    RNSNumber(uint32_t remainders[], RNS *rns);
-    ~RNSNumber() { delete [] mRemainders; }
+    RNSNumber(const uint32_t remainders[], RNS *rns);
+    ~RNSNumber() { delete [] m_Remainders; }
 
-    uint32_t *getRemainders() { return mRemainders; }
-    RNS *getRNS() { return mRNS; }
+    uint32_t *GetRemainders() const { return m_Remainders; }
+    RNS *GetRNS() const { return m_RNS; }
 
   private:
-    uint32_t *mRemainders;
-    RNS *mRNS;
+    uint32_t *m_Remainders;
+    RNS *m_RNS;
 };
 
 #endif

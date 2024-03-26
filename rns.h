@@ -2,7 +2,6 @@
 #define _RNS_H
 
 #include "rns-number.h"
-#include <iostream>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -13,31 +12,31 @@ class RNS {
     RNS(uint32_t moduli[], uint32_t modCount);
     ~RNS();
 
-    RNSNumber createRNSNumber(uint32_t num, RNS *rns);
-    RNSNumber createRNSNumber(std::string num, RNS *rns);
-    RNSNumber addRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns);
-    RNSNumber subRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns);
-    RNSNumber multRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns);
+    RNSNumber CreateRNSNumber(uint32_t num);
+    RNSNumber CreateRNSNumber(std::string num);
+    RNSNumber AddRNSNumbers(RNSNumber lhs, RNSNumber rhs);
+    RNSNumber SubRNSNumbers(RNSNumber lhs, RNSNumber rhs);
+    RNSNumber MultRNSNumbers(RNSNumber lhs, RNSNumber rhs);
 
-    int32_t getVectorCount() { return mVectorCount; }
-    int32_t getArithmeticCount() { return mArithmeticCount; }
+    int32_t GetVectorCount() const { return m_VectorCount; }
+    int32_t GetArithmeticCount() const { return m_ArithmeticCount; }
 
-    std::string convertToString(RNSNumber num);
+    std::string ConvertToString(RNSNumber rnsNumber);
 
-    uint32_t getAlpha(RNSNumber num);
+    uint32_t ComputeAlpha(RNSNumber rnsNumber);
     
   private:
-    int32_t mNumModuli;
-    int32_t mVectorCount;
-    int32_t mArithmeticCount;
+    int32_t m_NumModuli;
+    int32_t m_VectorCount;
+    int32_t m_ArithmeticCount;
 
-    uint32_t mM;
-    uint32_t *mModulus;
-    uint32_t *mMHat;
-    uint32_t *mMHatInverse;
-    uint32_t *mRInverse;
+    uint32_t m_M;
+    uint32_t *m_Modulus;
+    uint32_t *m_MHat;
+    uint32_t *m_RInverse;
+    uint32_t *m_MHatInverse;
 
-    std::vector<RNSNumber*> mRNSNumberPointer;
+    std::vector<RNSNumber*> m_pRNSNumber;
 };
 
 #endif

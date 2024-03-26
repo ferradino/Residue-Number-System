@@ -1,146 +1,199 @@
 #include "rns.h"
+#include <iostream>
 
-uint32_t findInverse(int32_t a, int32_t n) {
-  int32_t t = 0;
-  int32_t newt = 1;
-  int32_t r = n;
-  int32_t newr = a;
+uint32_t findInverse(int64_t a, int64_t n) {
+  int64_t
+    r = n, rNew = a,
+    t = 0, tNew = 1,
+    q, tmp;
 
-  while (newr != 0) {
-    int32_t q = r / newr;
+  while (rNew != 0) {
+    q = r / rNew;
 
-    t = newt;
-    newt = t - q * newt;
+    tmp = rNew;
+    rNew = r - q * rNew;
+    r = tmp;
 
-    r = newr;
-    newr = r - q * newr;
+    tmp = tNew;
+    tNew = r - q * tNew;
+    t = tmp;
   }
 
   if (r > 1) {
-    std::cout << a << " is not invertiable! Exiting Program!" << std::endl;
+    std::cout << "Mod inverse failed" << std::endl;
     std::exit(EXIT_FAILURE);
   }
 
   if (t < 0) {
-    t = t + n;
+    t += n;
   }
 
   return uint32_t(t);
 }
 
 RNS::RNS(uint32_t moduli[], uint32_t modCount) {
-  mModulus = new uint32_t(modCount);
-  mMHat = new uint32_t(modCount);
-  mMHatInverse = new uint32_t(modCount);
-  mRInverse = new uint32_t(modCount);
+  m_Modulus = new uint32_t(modCount);
+  m_MHat = new uint32_t(modCount);
+  m_MHatInverse = new uint32_t(modCount);
+  m_RInverse = new uint32_t(modCount);
 
-  mNumModuli = modCount; 
+  m_NumModuli = modCount; 
 
-  for (int i = 0; i < mNumModuli; i++) {
-    mModulus[i] = moduli[i];
-    mM *= moduli[i];
+  for (int i = 0; i < m_NumModuli; i++) {
+    m_Modulus[i] = moduli[i];
+    m_M *= moduli[i];
   }
   
-  for (int j = 0; j < mNumModuli; j++) {
-    mMHat[j] = mM / mModulus[j];
+  for (int j = 0; j < m_NumModuli; j++) {
+    m_MHat[j] = m_M / m_Modulus[j];
   }
 
-  for (int k = 0; k < mNumModuli; k++) {
-    // mMHatInverse[k] = findInverse();
+  for (int k = 0; k < m_NumModuli; k++) {
+    m_MHatInverse[k] = findInverse(m_MHat[k], m_Modulus[k]);
+    m_RInverse[k] = findInverse(m_Modulus[0], m_Modulus[k]);
   }
 
 }
 
 RNS::~RNS() {
-  delete [] mModulus;
-  delete [] mMHat;
-  delete [] mMHatInverse;
-  delete [] mRInverse;
+  delete [] m_Modulus;
+  delete [] m_MHat;
+  delete [] m_MHatInverse;
+  delete [] m_RInverse;
+
+  for(auto number : m_pRNSNumber) {
+    delete number;
+  }
+
+  m_pRNSNumber.clear();
 }
 
-RNSNumber RNS::createRNSNumber(uint32_t num, RNS *rns) {
-  uint32_t remainders[mNumModuli];
+RNSNumber RNS::CreateRNSNumber(uint32_t num) {
+  uint32_t remainders[m_NumModuli];
 
-  for (int i = 0; i < mNumModuli; i++) {
-    remainders[i] = num % mModulus[i];
+  for (int i = 0; i < m_NumModuli; i++) {
+    remainders[i] = num % m_Modulus[i];
   }
  
-  RNSNumber number = RNSNumber(remainders, rns);
-  return number;
+  RNSNumber *number = new RNSNumber(remainders, this);
+  m_pRNSNumber.push_back(number);
+  return *number;
 }
 
-RNSNumber RNS::createRNSNumber(std::string num, RNS *rns) {
-  uint32_t remainders[mNumModuli];
+RNSNumber RNS::CreateRNSNumber(std::string num) {
+  uint32_t remainders[m_NumModuli];
 
-  for (int i = 0; i < mNumModuli; i++) {
-    remainders[i] = uint32_t(stoi(num)) % mModulus[i];
+  for (int i = 0; i < m_NumModuli; i++) {
+    remainders[i] = uint32_t(stoi(num)) % m_Modulus[i];
   }
  
-  RNSNumber number = RNSNumber(remainders, rns);
-  return number;
+  RNSNumber *number = new RNSNumber(remainders, this);
+  m_pRNSNumber.push_back(number);
+  return *number;
 }
 
-RNSNumber RNS::addRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns) {
-  uint32_t *xRemainders = x.getRemainders();
-  uint32_t *yRemainders = y.getRemainders();
-  uint32_t remainders[mNumModuli];
+RNSNumber RNS::AddRNSNumbers(RNSNumber lhs, RNSNumber rhs) {
+  uint32_t 
+    *x = lhs.GetRemainders(),
+    *y = rhs.GetRemainders(),
+    a[m_NumModuli];
+  uint64_t tmp;
 
-  if (x.getRNS() != y.getRNS()) {
-    std::cout << "Modular arithmetic performed on RNSNumbers that  are not apart of the same RNS! Exiting Program!" << std::endl;
+  if (lhs.GetRNS() != rhs.GetRNS()) {
+    std::cout << "Modular arithmetic performed on RNSNumbers that are not apart of the same RNS! Exiting Program!" << std::endl;
     std::exit(EXIT_FAILURE);
   }
 
-  for (int i = 0; i < mNumModuli; i++) {
-    remainders[i] = (xRemainders[i] + yRemainders[i]) % mModulus[i];
+  for (int i = 0; i < m_NumModuli; i++) {
+    tmp = (x[i] + y[i]) % m_Modulus[i];
+    a[i] = uint32_t(tmp);
   }
 
-  mVectorCount++;
-  mArithmeticCount += mNumModuli;
+  m_VectorCount++;
+  m_ArithmeticCount += m_NumModuli;
 
-  return RNSNumber(remainders, rns);
+
+  RNSNumber *number = new RNSNumber(a, this);
+  m_pRNSNumber.push_back(number);
+  return *number;
 }
 
-RNSNumber RNS::subRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns) {
-  uint32_t *xRemainders = x.getRemainders();
-  uint32_t *yRemainders = y.getRemainders();
-  uint32_t remainders[mNumModuli];
+RNSNumber RNS::SubRNSNumbers(RNSNumber lhs, RNSNumber rhs) {
+  uint32_t 
+    *x = lhs.GetRemainders(), 
+    *y = rhs.GetRemainders(), 
+    b[m_NumModuli];
+  uint64_t tmp;
   
-  if (x.getRNS() != y.getRNS()) {
-    std::cout << "Modular arithmetic performed on RNSNumbers that  are not apart of the same RNS! Exiting Program!" << std::endl;
+  if (lhs.GetRNS() != rhs.GetRNS()) {
+    std::cout << "Modular arithmetic performed on RNSNumbers that are not apart of the same RNS! Exiting Program!" << std::endl;
     std::exit(EXIT_FAILURE);
   }
 
-  for (int i = 0; i < mNumModuli; i++) {
-    remainders[i] = (xRemainders[i] + yRemainders[i]) % mModulus[i];
+  for (int i = 0; i < m_NumModuli; i++) {
+    tmp = (x[i] - y[i]) % m_Modulus[i];
+    b[i] = uint32_t(tmp);
   }
 
-  mVectorCount++;
-  mArithmeticCount += mNumModuli;
+  m_VectorCount++;
+  m_ArithmeticCount += m_NumModuli;
 
-  return RNSNumber(remainders, rns);
+  RNSNumber *number = new RNSNumber(b, this);
+  m_pRNSNumber.push_back(number);
+  return *number;
 }
 
 
-RNSNumber RNS::multRNSNumbers(RNSNumber x, RNSNumber y, RNS *rns) {
-  uint32_t *xRemainders = x.getRemainders();
-  uint32_t *yRemainders = y.getRemainders();
-  uint32_t remainders[mNumModuli];
+RNSNumber RNS::MultRNSNumbers(RNSNumber lhs, RNSNumber rhs) {
+  uint32_t 
+    *x = lhs.GetRemainders(),
+    *y = rhs.GetRemainders(),
+    c[m_NumModuli];
+  uint64_t tmp;
 
-  if (x.getRNS() != y.getRNS()) {
-    std::cout << "Modular arithmetic performed on RNSNumbers that  are not apart of the same RNS! Exiting Program!" << std::endl;
+  if (lhs.GetRNS() != rhs.GetRNS()) {
+    std::cout << "Modular arithmetic performed on RNSNumbers that are not apart of the same RNS! Exiting Program!" << std::endl;
     std::exit(EXIT_FAILURE);
   }
 
-  for (int i = 0; i < mNumModuli; i++) {
-    remainders[i] = (xRemainders[i] + yRemainders[i]) % mModulus[i];
+  for (int i = 0; i < m_NumModuli; i++) {
+    tmp = (x[i] * y[i]) % m_Modulus[i];
+    c[i] = uint32_t(tmp);
   }
 
-  mVectorCount++;
-  mArithmeticCount += mNumModuli;
+  m_VectorCount++;
+  m_ArithmeticCount += m_NumModuli;
 
-  return RNSNumber(remainders, rns);
+  RNSNumber *number = new RNSNumber(c, this);
+  m_pRNSNumber.push_back(number);
+  return *number;
 }
 
-std::string RNS::convertToString(RNSNumber num) {}
+// TODO: Implement this
+// std::string RNS::ConvertToString(RNSNumber rnsNumber) {}
 
-uint32_t RNS::getAlpha(RNSNumber num) {}
+uint32_t RNS::ComputeAlpha(RNSNumber rnsNumber) {
+  uint32_t 
+    *a = rnsNumber.GetRemainders(),
+    alpha, f;
+  uint64_t 
+    sum = 0;
+
+  if (rnsNumber.GetRNS() != this) {
+    std::cout << "Cannot compute alpha for a RNSNumber of a different RNS! Exiting Program!" << std::endl;
+    std::exit(EXIT_FAILURE);
+  }
+
+  for (int i = 0; i < m_NumModuli; i++) {
+    sum += std::floor((a[i] * m_MHatInverse[i]) << 32 / m_Modulus[i]);
+  }
+
+  alpha = sum >> 32;
+  f = sum % ((uint64_t)1 << 32);
+
+  if (f >= ((uint64_t)1 << 32) - m_NumModuli) {
+    return alpha;
+  }
+    
+  return -1;
+}
